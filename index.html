@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КМВ Недвижимость — Новый Дом</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ─────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#fff;color:#111;overflow-x:hidden}
+input,select,textarea,button{font-family:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ── VARIABLES ────────────────────────────────────────────── */
+:root{
+  --teal:#2BBFA0;
+  --teal2:#22a88c;
+  --dark:#0D1B2A;
+  --dark2:#1A2E45;
+  --mid:#6b7280;
+  --light:#f9fafb;
+  --border:#e5e7eb;
+}
+
+/* ── UTILS ────────────────────────────────────────────────── */
+.hidden{display:none!important}
+.page{display:none}
+.page.active{display:block}
+
+/* ── NAV ──────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;background:var(--dark);
+  box-shadow:0 2px 16px rgba(0,0,0,.3);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+.nav-logo-icon{width:36px;height:36px;min-width:36px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-logo-text{color:#fff;font-weight:800;font-size:15px;line-height:1.1}
+.nav-logo-text span{color:var(--teal)}
+.nav-logo-sub{color:rgba(255,255,255,.35);font-size:9px;letter-spacing:.12em;text-transform:uppercase}
+.nav-links{display:flex;gap:24px}
+.nav-link{background:none;border:none;cursor:pointer;font-size:14px;color:rgba(255,255,255,.75);font-weight:500;padding:6px 2px;transition:color .15s;position:relative}
+.nav-link:hover,.nav-link.active{color:#fff}
+.nav-link.active::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--teal);border-radius:2px}
+.nav-fav-badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--teal);color:var(--dark);font-size:10px;font-weight:800;margin-left:4px;vertical-align:middle}
+.nav-cta{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s;white-space:nowrap}
+.nav-cta:hover{background:var(--teal2)}
+
+/* ── BUTTONS ──────────────────────────────────────────────── */
+.btn-teal{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:13px 28px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.btn-teal:hover{background:var(--teal2)}
+.btn-outline-teal{background:transparent;color:var(--teal);border:2px solid var(--teal);border-radius:8px;padding:11px 26px;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-outline-teal:hover{background:var(--teal);color:#fff}
+.btn-outline-white{background:rgba(255,255,255,.1);color:#fff;border:2px solid rgba(255,255,255,.45);border-radius:8px;padding:13px 26px;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-outline-white:hover{background:rgba(255,255,255,.2)}
+.btn-detail{width:100%;border:1.5px solid var(--border);background:#fff;color:#333;border-radius:8px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-detail:hover{border-color:var(--teal);color:var(--teal)}
+
+/* ── PILLS ────────────────────────────────────────────────── */
+.pill-wrap{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.pill{border:1.5px solid var(--border);background:#fff;color:#555;padding:7px 18px;border-radius:50px;font-size:14px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.pill:hover{border-color:var(--teal);color:var(--teal)}
+.pill.active{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:600}
+
+/* ── SECTION LABELS ───────────────────────────────────────── */
+.section-tag{display:inline-block;border:1.5px solid var(--teal);color:var(--teal);border-radius:50px;padding:5px 18px;font-size:13px;font-weight:600;margin-bottom:14px}
+
+/* ── FORM INPUTS ──────────────────────────────────────────── */
+.f-input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-size:14px;outline:none;transition:border-color .15s;background:#fff;color:#111}
+.f-input:focus{border-color:var(--teal)}
+.f-select{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-size:14px;outline:none;background:#fff;cursor:pointer;color:#111}
+.f-label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;display:block}
+.f-group{margin-bottom:14px}
+
+/* ── HERO ─────────────────────────────────────────────────── */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  background:var(--dark);position:relative;overflow:hidden;padding-top:64px;
+}
+#hero-bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1600&q=75');
+  background-size:cover;background-position:center;opacity:.25;
+}
+#hero-grad{position:absolute;inset:0;background:linear-gradient(120deg,var(--dark) 38%,rgba(13,27,42,.55) 100%)}
+.hero-inner{position:relative;z-index:1;padding:0 60px;max-width:860px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.2);border-radius:50px;padding:7px 18px;font-size:13px;color:rgba(255,255,255,.8);margin-bottom:28px;background:rgba(255,255,255,.06)}
+.hero-title{font-size:clamp(2.5rem,5vw,4rem);font-weight:800;line-height:1.08;color:#fff;margin-bottom:20px}
+.hero-title .accent{color:var(--teal);font-style:italic}
+.hero-sub{font-size:16px;line-height:1.75;color:rgba(255,255,255,.6);max-width:520px;margin-bottom:36px}
+.hero-stats{display:flex;gap:40px;margin-bottom:40px}
+.stat-num{font-size:2rem;font-weight:800;color:#fff;line-height:1}
+.stat-lbl{font-size:13px;color:rgba(255,255,255,.4);margin-top:4px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+
+/* ── CARDS ────────────────────────────────────────────────── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:24px}
+.prop-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.08);cursor:pointer;transition:transform .2s,box-shadow .2s}
+.prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.13)}
+.card-img-wrap{position:relative;aspect-ratio:16/10;overflow:hidden;background:#e5e7eb}
+.card-img-wrap img{transition:transform .5s}
+.prop-card:hover .card-img-wrap img{transform:scale(1.04)}
+.card-badge{position:absolute;top:12px;left:12px;color:#fff;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700}
+.card-dist{position:absolute;bottom:12px;left:12px;background:rgba(13,27,42,.75);color:#fff;border-radius:6px;padding:4px 10px;font-size:12px;backdrop-filter:blur(4px)}
+.card-fav{position:absolute;top:10px;right:10px;background:#fff;border:none;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);font-size:17px;transition:transform .15s}
+.card-fav:hover{transform:scale(1.15)}
+.card-fav.active{color:#e74c3c}
+.card-body{padding:16px 18px 18px}
+.card-city{font-size:12px;color:var(--teal);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.card-title{font-size:16px;font-weight:700;color:#111;margin-bottom:6px;line-height:1.3}
+.card-addr{font-size:13px;color:#888;margin-bottom:10px}
+.card-desc{font-size:13px;color:#555;line-height:1.65;margin-bottom:14px}
+.card-meta{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.card-meta span{font-size:13px;color:#555}
+.card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border)}
+.card-price{font-size:17px;font-weight:800;color:#111}
+.card-price .per-month{font-size:12px;font-weight:400;color:#888}
+.card-eur{font-size:11px;color:#aaa;margin-top:1px}
+.card-status{font-size:12px;color:#888}
+
+/* ── CATALOG PAGE ─────────────────────────────────────────── */
+.catalog-wrap{padding:40px 40px 60px;max-width:1360px;margin:0 auto}
+.catalog-head{text-align:center;margin-bottom:36px}
+.catalog-head h2{font-size:2.1rem;font-weight:800;color:#111;margin-bottom:8px}
+.catalog-head p{color:#666;font-size:15px}
+.filter-bar{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.filter-bar .f-group{margin-bottom:0;flex:1;min-width:140px}
+.filter-reset{background:none;border:none;color:#888;font-size:13px;cursor:pointer;text-decoration:underline;align-self:flex-end;white-space:nowrap;padding:11px 0}
+.sort-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.sort-pills{display:flex;gap:6px;flex-wrap:wrap}
+.sort-pill{border:1px solid var(--border);background:#fff;color:#555;padding:5px 14px;border-radius:50px;font-size:13px;cursor:pointer;transition:all .15s}
+.sort-pill.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.results-count{font-size:14px;color:#888}
+.results-count b{color:#111}
+.empty-state{text-align:center;padding:5rem 2rem;color:#aaa}
+.empty-state .empty-icon{font-size:3rem;margin-bottom:12px}
+.empty-state h3{font-size:1.4rem;font-weight:700;color:#333;margin-bottom:8px}
+
+/* ── DETAIL PAGE ──────────────────────────────────────────── */
+.detail-wrap{max-width:1200px;margin:0 auto;padding:36px 40px 60px}
+.detail-back{background:none;border:none;cursor:pointer;color:var(--teal);font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;margin-bottom:28px}
+.detail-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:start}
+.gallery-sticky{position:sticky;top:80px}
+.gallery-main{border-radius:14px;overflow:hidden;margin-bottom:6px;aspect-ratio:4/3;background:#e5e7eb;position:relative}
+.gallery-main img{width:100%;height:100%;object-fit:cover}
+.gallery-main .gal-badge{position:absolute;top:14px;left:14px;color:#fff;border-radius:6px;padding:5px 12px;font-weight:700;font-size:13px}
+.gallery-main .gal-fav{position:absolute;top:12px;right:12px;background:#fff;border:none;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);font-size:20px;transition:transform .15s}
+.gallery-main .gal-fav:hover{transform:scale(1.1)}
+.gallery-main .gal-fav.active{color:#e74c3c}
+.thumbs{display:flex;gap:6px}
+.thumbs img{flex:1;aspect-ratio:4/3;object-fit:cover;border-radius:8px;cursor:pointer;border:3px solid transparent;transition:border-color .15s;min-width:0}
+.thumbs img.active{border-color:var(--teal)}
+.detail-eyebrow{font-size:13px;color:var(--teal);font-weight:600;margin-bottom:6px}
+.detail-title{font-size:1.9rem;font-weight:800;color:#111;line-height:1.2;margin-bottom:8px}
+.detail-addr{font-size:14px;color:#888;margin-bottom:20px}
+.detail-price-row{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.detail-price{font-size:2rem;font-weight:800;color:#111}
+.detail-price .per-month{font-size:14px;font-weight:400;color:#888}
+.fav-toggle{background:#f5f5f5;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;color:#555;font-weight:600;font-size:14px;transition:all .15s}
+.fav-toggle.active{background:#fdecea;color:#e74c3c}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;background:#f9fafb;border-radius:12px;padding:18px 20px;margin-bottom:22px}
+.spec-label{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.spec-val{font-size:15px;font-weight:600;color:#222}
+.detail-desc{font-size:14px;line-height:1.8;color:#555;margin-bottom:18px}
+.features-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.feature-tag{background:#f0fdf9;border:1px solid rgba(43,191,160,.3);color:var(--teal);border-radius:6px;padding:5px 12px;font-size:13px;font-weight:500}
+.inline-form{background:var(--dark);border-radius:14px;padding:24px}
+.inline-form h3{font-size:17px;font-weight:700;color:#fff;margin-bottom:16px}
+.dark-input{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 13px;font-size:14px;color:#fff;outline:none;transition:border-color .15s}
+.dark-input:focus{border-color:var(--teal)}
+.dark-input::placeholder{color:rgba(255,255,255,.3)}
+.dark-label{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;display:block}
+
+/* ── AGENTS PAGE ──────────────────────────────────────────── */
+.agents-page{background:#f9fafb;padding:60px 40px}
+.agents-head{text-align:center;margin-bottom:48px}
+.agents-head h2{font-size:2.1rem;font-weight:800;color:#111;margin-bottom:8px}
+.agents-head p{color:#666;font-size:15px}
+.agents-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.agent-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.08);transition:transform .2s,box-shadow .2s}
+.agent-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.13)}
+.agent-photo{height:160px;display:flex;align-items:flex-end;padding:0 20px 16px;position:relative}
+.agent-rating{position:absolute;top:12px;right:12px;background:#fff;border-radius:20px;padding:4px 10px;font-size:13px;font-weight:700}
+.agent-avatar{width:64px;height:64px;min-width:64px;border-radius:50%;border:3px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;background:rgba(255,255,255,.2);margin-right:12px}
+.agent-name{font-size:17px;font-weight:800;color:#fff}
+.agent-role{font-size:12px;color:rgba(255,255,255,.7)}
+.agent-body{padding:18px 20px 20px}
+.lang-badges{display:flex;gap:5px}
+.lang-badge{border-radius:4px;padding:3px 7px;font-size:11px;font-weight:700}
+.lang-ru{background:#e8f4fd;color:#1a6b9a}
+.lang-en{background:#e8f9f0;color:#2c7a6e}
+.lang-de{background:#fef9e7;color:#9a7a1a}
+.lang-zh{background:#fef3e8;color:#9a5a1a}
+.agent-exp{font-size:13px;color:#888}
+.agent-cities{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
+.agent-city{font-size:13px;color:#555}
+.agent-spec{font-size:14px;color:#333;margin-bottom:16px}
+.agent-deals-num{font-size:1.4rem;font-weight:800;color:#111;line-height:1}
+.agent-deals-lbl{font-size:12px;color:#aaa}
+.agent-actions{display:flex;gap:8px}
+.btn-tg{background:#229ED9;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:6px}
+.btn-tg:hover{background:#1a8bbf}
+.btn-call{background:#f5f5f5;border:none;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:5px}
+.btn-call:hover{background:#ebebeb}
+
+/* ── CONTACT PAGE ─────────────────────────────────────────── */
+.contact-hero{background:var(--dark);padding:60px 40px 50px}
+.contact-hero h1{font-size:2.4rem;font-weight:800;color:#fff;margin-bottom:12px;line-height:1.2}
+.contact-hero h1 span{color:var(--teal)}
+.contact-hero p{color:rgba(255,255,255,.55);font-size:15px;line-height:1.75;max-width:500px}
+.contact-body{max-width:1200px;margin:0 auto;padding:50px 40px;display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.contact-body h2{font-size:1.5rem;font-weight:800;color:#111;margin-bottom:24px}
+.contact-items{display:flex;flex-direction:column;gap:18px;margin-bottom:28px}
+.contact-item{display:flex;gap:14px;align-items:flex-start}
+.contact-icon{width:40px;height:40px;min-width:40px;border:1.5px solid rgba(43,191,160,.35);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.contact-item-label{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+.contact-item-val{font-size:15px;color:#222;white-space:pre-line}
+.contact-tg-link{color:var(--teal);text-decoration:none;font-weight:600}
+.contact-tg-link:hover{text-decoration:underline}
+.map-iframe{width:100%;aspect-ratio:4/3;border:none;border-radius:14px;display:block}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-send-btn{width:100%;padding:14px;font-size:16px;border-radius:10px}
+.form-note{font-size:12px;color:#bbb;margin-top:8px;text-align:center}
+
+/* ── HOME PAGE SECTIONS ───────────────────────────────────── */
+.home-section{padding:70px 40px;max-width:1360px;margin:0 auto}
+.home-section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:12px}
+.home-section-head h2{font-size:2rem;font-weight:800;color:#111}
+.why-section{background:#f0fdf9;padding:70px 40px}
+.why-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.why-card{background:#fff;border-radius:14px;padding:28px 22px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.why-icon{font-size:2rem;margin-bottom:12px}
+.why-title{font-size:17px;font-weight:700;color:#111;margin-bottom:8px}
+.why-desc{font-size:13px;color:#666;line-height:1.7}
+.agents-preview{padding:70px 40px;background:#fff}
+.agents-preview-inner{max-width:1200px;margin:0 auto}
+.agents-preview-head{text-align:center;margin-bottom:44px}
+.agents-preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:32px}
+.agents-preview-foot{text-align:center}
+
+/* ── FAVORITES PAGE ───────────────────────────────────────── */
+.favs-wrap{padding:40px 40px 60px;max-width:1360px;margin:0 auto}
+.favs-head{margin-bottom:32px}
+.favs-head h1{font-size:2rem;font-weight:800;color:#111;margin-bottom:4px}
+.favs-head p{color:#888;font-size:14px}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer{background:var(--dark);padding:28px 40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap;gap:12px}
+.footer-logo{display:flex;align-items:center;gap:10px}
+.footer-logo-icon{width:30px;height:30px;min-width:30px;background:var(--teal);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.footer-logo-name{color:#fff;font-weight:700;font-size:14px}
+.footer-logo-name span{color:var(--teal)}
+.footer-copy{color:rgba(255,255,255,.25);font-size:13px}
+.footer-links{display:flex;gap:20px}
+.footer-link{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.35);font-size:13px;transition:color .15s}
+.footer-link:hover{color:rgba(255,255,255,.7)}
+
+/* ── SUCCESS MESSAGE ──────────────────────────────────────── */
+.success-msg{background:#f0fdf9;border:1px solid rgba(43,191,160,.4);border-radius:8px;padding:14px 18px;color:var(--teal);font-weight:600;font-size:15px;text-align:center;margin-top:10px;display:none}
+.success-msg.show{display:block}
+
+/* ── TELEGRAM BUTTON ──────────────────────────────────────── */
+.tg-float{position:fixed;bottom:28px;right:28px;z-index:998;background:#229ED9;border:none;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(34,158,217,.45);transition:transform .2s,box-shadow .2s;text-decoration:none}
+.tg-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(34,158,217,.6)}
+.tg-float svg{width:28px;height:28px;fill:#fff}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero-inner{padding:0 24px}
+  .hero-stats{gap:24px}
+  .home-section,.catalog-wrap,.detail-wrap,.favs-wrap,.contact-body{padding-left:20px;padding-right:20px}
+  .detail-grid,.contact-body{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .agents-preview-grid{grid-template-columns:1fr}
+  .form-grid-2{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ FLOATING TELEGRAM BUTTON ══════════════════════════════ -->
+<a class="tg-float" href="https://t.me/kmv_realty" target="_blank" title="Написать в Telegram">
+  <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+</a>
+
+<!-- ══ NAV ════════════════════════════════════════════════════ -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon">🏠</div>
+    <div>
+      <div class="nav-logo-text"><span>КМВ</span>Новый дом</div>
+      <div class="nav-logo-sub">KMV REAL ESTATE</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <button class="nav-link active" id="nav-home"    onclick="showPage('home')">О компании</button>
+    <button class="nav-link"        id="nav-catalog" onclick="showPage('catalog')">Объекты</button>
+    <button class="nav-link"        id="nav-agents"  onclick="showPage('agents')">Агенты</button>
+    <button class="nav-link"        id="nav-contact" onclick="showPage('contact')">Контакты</button>
+    <button class="nav-link"        id="nav-favs"    onclick="showPage('favs')">
+      Избранное <span class="nav-fav-badge hidden" id="fav-count">0</span>
+    </button>
+  </div>
+  <button class="nav-cta" onclick="showPage('contact')">Оставить заявку</button>
+</nav>
+
+<!-- ══ HOME PAGE ══════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <section id="hero">
+    <div id="hero-bg"></div>
+    <div id="hero-grad"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">⭐ РАБОТАЕМ ПО ВСЕМУ КМВ С 2012 ГОДА</div>
+      <h1 class="hero-title">Недвижимость<br>в КМВ <span class="accent">с гарантией</span></h1>
+      <p class="hero-sub">КМВ НедвижимостьГрупп — ваш надёжный партнёр в поиске квартиры, коттеджа или инвестиционного объекта в Пятигорске, Кисловодске, Ессентуках и Железноводске.</p>
+      <div class="hero-stats">
+        <div><div class="stat-num">200+</div><div class="stat-lbl">Объектов в базе</div></div>
+        <div><div class="stat-num">12 лет</div><div class="stat-lbl">На рынке КМВ</div></div>
+        <div><div class="stat-num">4 города</div><div class="stat-lbl">Присутствия</div></div>
+      </div>
+      <div class="hero-actions">
+        <button class="btn-teal" style="font-size:15px;padding:13px 30px" onclick="showPage('catalog')">Подобрать объект</button>
+        <button class="btn-outline-white" onclick="showPage('contact')">Бесплатная консультация</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured properties -->
+  <section class="home-section">
+    <div class="home-section-head">
+      <div>
+        <div class="section-tag">ЛУЧШИЕ ПРЕДЛОЖЕНИЯ</div>
+        <h2>Найдите свой <span style="color:var(--teal)">объект в КМВ</span></h2>
+      </div>
+      <button class="btn-outline-teal" style="padding:10px 22px;font-size:14px" onclick="showPage('catalog')">Весь каталог →</button>
+    </div>
+    <!-- Type pills -->
+    <div class="pill-wrap" style="margin-bottom:14px">
+      <button class="pill active" onclick="showPage('catalog')">🏘 Все типы</button>
+      <button class="pill" onclick="showPage('catalog')">🏙 Квартиры</button>
+      <button class="pill" onclick="showPage('catalog')">🏠 Дома</button>
+      <button class="pill" onclick="showPage('catalog')">🏢 Коммерческая</button>
+    </div>
+    <!-- City pills -->
+    <div class="pill-wrap" style="margin-bottom:36px">
+      <button class="pill active" onclick="showPage('catalog')">Все города</button>
+      <button class="pill" onclick="showPage('catalog')">Пятигорск</button>
+      <button class="pill" onclick="showPage('catalog')">Кисловодск</button>
+      <button class="pill" onclick="showPage('catalog')">Ессентуки</button>
+      <button class="pill" onclick="showPage('catalog')">Железноводск</button>
+    </div>
+    <div class="cards-grid" id="home-featured"></div>
+    <div style="text-align:center;margin-top:36px">
+      <button class="btn-teal" style="padding:14px 40px;font-size:15px" onclick="showPage('catalog')">Смотреть все объекты →</button>
+    </div>
+  </section>
+
+  <!-- Why us -->
+  <section class="why-section">
+    <div style="text-align:center;margin-bottom:44px">
+      <div class="section-tag">ПОЧЕМУ МЫ</div>
+      <h2 style="font-size:2rem;font-weight:800;color:#111">Полный сервис от <span style="color:var(--teal)">А до Я</span></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">🔍</div><div class="why-title">Подбор</div><p class="why-desc">Подбираем объект под ваши параметры из 200+ актуальных вариантов базы КМВ.</p></div>
+      <div class="why-card"><div class="why-icon">⚖️</div><div class="why-title">Юристы</div><p class="why-desc">Полная юридическая проверка объекта и сопровождение сделки до регистрации.</p></div>
+      <div class="why-card"><div class="why-icon">🏦</div><div class="why-title">Ипотека</div><p class="why-desc">Одобрение в 15 банках, господдержка, семейная и военная ипотека.</p></div>
+      <div class="why-card"><div class="why-icon">📈</div><div class="why-title">Инвестиции</div><p class="why-desc">Анализ доходности, управление арендой, пассивный доход в курортном регионе.</p></div>
+    </div>
+  </section>
+
+  <!-- Agents preview -->
+  <section class="agents-preview">
+    <div class="agents-preview-inner">
+      <div class="agents-preview-head">
+        <div class="section-tag">НАША КОМАНДА</div>
+        <h2 style="font-size:2rem;font-weight:800;color:#111">Агенты, которым<br><span style="color:var(--teal)">можно доверять</span></h2>
+        <p style="color:#666;font-size:15px;margin-top:10px">Наши специалисты живут в КМВ и знают рынок изнутри.</p>
+      </div>
+      <div class="agents-preview-grid" id="home-agents"></div>
+      <div class="agents-preview-foot">
+        <button class="btn-outline-teal" style="padding:13px 36px;font-size:15px" onclick="showPage('agents')">Все агенты →</button>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+<!-- ══ CATALOG PAGE ═══════════════════════════════════════════ -->
+<div id="page-catalog" class="page">
+  <div class="catalog-wrap">
+    <div class="catalog-head">
+      <div class="section-tag">КАТАЛОГ</div>
+      <h2>Найдите свой <span style="color:var(--teal)">объект в КМВ</span></h2>
+      <p>Тщательно отобранные объекты с проверенными документами. Всё прозрачно.</p>
+    </div>
+
+    <!-- Type pills -->
+    <div class="pill-wrap" style="margin-bottom:12px" id="type-pills">
+      <button class="pill active" data-type="all">🏘 Все типы</button>
+      <button class="pill" data-type="Квартира">🏙 Квартира</button>
+      <button class="pill" data-type="Дом">🏠 Дом</button>
+      <button class="pill" data-type="Таунхаус">🏘 Таунхаус</button>
+      <button class="pill" data-type="Коммерческая">🏢 Коммерческая</button>
+    </div>
+    <!-- City pills -->
+    <div class="pill-wrap" style="margin-bottom:28px" id="city-pills">
+      <button class="pill active" data-city="all">Все города</button>
+      <button class="pill" data-city="Пятигорск">Пятигорск</button>
+      <button class="pill" data-city="Кисловодск">Кисловодск</button>
+      <button class="pill" data-city="Ессентуки">Ессентуки</button>
+      <button class="pill" data-city="Железноводск">Железноводск</button>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <div class="f-group" style="flex:2;min-width:200px">
+        <label class="f-label">Поиск</label>
+        <input class="f-input" id="search-input" placeholder="🔍  По названию или адресу..." oninput="renderCatalog()">
+      </div>
+      <div class="f-group">
+        <label class="f-label">Статус</label>
+        <select class="f-select" id="status-filter" onchange="renderCatalog()">
+          <option value="all">Все</option>
+          <option value="Продажа">Продажа</option>
+          <option value="Новостройка">Новостройка</option>
+          <option value="Аренда">Аренда</option>
+        </select>
+      </div>
+      <div class="f-group">
+        <label class="f-label">Цена до (млн ₽)</label>
+        <input class="f-input" id="price-max" type="number" min="0" placeholder="∞" oninput="renderCatalog()" style="width:140px">
+      </div>
+      <div class="f-group">
+        <label class="f-label">Комнат</label>
+        <select class="f-select" id="rooms-filter" onchange="renderCatalog()" style="width:110px">
+          <option value="all">Любое</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4+</option>
+        </select>
+      </div>
+      <button class="filter-reset" onclick="resetFilters()">Сбросить</button>
+    </div>
+
+    <!-- Sort & count -->
+    <div class="sort-bar">
+      <div class="results-count">Найдено: <b id="results-count">0</b> объектов</div>
+      <div class="sort-pills" id="sort-pills">
+        <button class="sort-pill active" data-sort="default">По умолчанию</button>
+        <button class="sort-pill" data-sort="price_asc">Цена ↑</button>
+        <button class="sort-pill" data-sort="price_desc">Цена ↓</button>
+        <button class="sort-pill" data-sort="area">Площадь ↓</button>
+      </div>
+    </div>
+
+    <div class="cards-grid" id="catalog-grid"></div>
+    <div class="empty-state hidden" id="catalog-empty">
+      <div class="empty-icon">🏠</div>
+      <h3>Ничего не найдено</h3>
+      <p>Попробуйте изменить фильтры или расширить бюджет</p>
+      <button class="btn-teal" style="margin-top:20px;padding:12px 28px" onclick="resetFilters()">Сбросить фильтры</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DETAIL PAGE ════════════════════════════════════════════ -->
+<div id="page-detail" class="page">
+  <div class="detail-wrap">
+    <button class="detail-back" onclick="showPage('catalog')">← Назад к каталогу</button>
+    <div class="detail-grid">
+      <!-- Gallery -->
+      <div class="gallery-sticky">
+        <div class="gallery-main" id="detail-gallery-main">
+          <img id="detail-main-img" src="" alt="">
+          <span class="gal-badge" id="detail-gal-badge"></span>
+          <button class="gal-fav" id="detail-fav-btn" onclick="toggleFavDetail()">♡</button>
+        </div>
+        <div class="thumbs" id="detail-thumbs"></div>
+      </div>
+      <!-- Info -->
+      <div>
+        <div class="detail-eyebrow" id="detail-eyebrow"></div>
+        <h1 class="detail-title" id="detail-title"></h1>
+        <div class="detail-addr" id="detail-addr"></div>
+        <div class="detail-price-row">
+          <div>
+            <div class="detail-price" id="detail-price"></div>
+          </div>
+          <button class="fav-toggle" id="detail-fav-toggle" onclick="toggleFavDetail()">♡ В избранное</button>
+        </div>
+        <div class="specs-grid" id="detail-specs"></div>
+        <p class="detail-desc" id="detail-desc"></p>
+        <div class="features-wrap" id="detail-features"></div>
+
+        <!-- Inline contact form -->
+        <div class="inline-form">
+          <h3>Хочу узнать подробнее</h3>
+          <div class="f-group">
+            <label class="dark-label">Ваше имя</label>
+            <input class="dark-input" id="il-name" placeholder="Иван" type="text">
+          </div>
+          <div class="f-group">
+            <label class="dark-label">Телефон</label>
+            <input class="dark-input" id="il-phone" placeholder="+7 (___) ___-__-__" type="tel">
+          </div>
+          <div class="f-group">
+            <label class="dark-label">Комментарий</label>
+            <textarea class="dark-input" id="il-comment" rows="3" style="resize:none"></textarea>
+          </div>
+          <button class="btn-teal" style="width:100%;padding:13px;font-size:15px" onclick="submitInline()">Отправить заявку</button>
+          <div class="success-msg" id="il-success">✓ Заявка отправлена! Свяжемся в течение часа.</div>
+          <!-- Telegram link -->
+          <div style="text-align:center;margin-top:14px">
+            <a href="https://t.me/kmv_realty" target="_blank" class="btn-tg" style="display:inline-flex;border-radius:8px;padding:10px 20px;font-size:14px;text-decoration:none">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              Написать в Telegram
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ AGENTS PAGE ════════════════════════════════════════════ -->
+<div id="page-agents" class="page">
+  <div class="agents-page">
+    <div class="agents-head">
+      <div class="section-tag">НАША КОМАНДА</div>
+      <h2>Агенты, которым<br><span style="color:var(--teal)">можно доверять</span></h2>
+      <p>Наши специалисты живут в КМВ, знают рынок изнутри и говорят на вашем языке.</p>
+    </div>
+    <div class="agents-grid" id="agents-grid"></div>
+  </div>
+</div>
+
+<!-- ══ CONTACT PAGE ═══════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div class="contact-hero">
+    <div style="display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.2);border-radius:50px;padding:7px 18px;font-size:13px;color:rgba(255,255,255,.7);margin-bottom:20px;background:rgba(255,255,255,.06)">
+      ⭐ РАБОТАЕМ ПО ВСЕМУ КМВ С 2012 ГОДА
+    </div>
+    <h1>Оставить <span>заявку</span></h1>
+    <p>Ответим в течение рабочего часа. Подберём лучшие варианты под ваши параметры и бюджет.</p>
+  </div>
+  <div class="contact-body">
+    <!-- Form -->
+    <div>
+      <h2>Форма заявки</h2>
+      <div class="form-grid-2">
+        <div class="f-group">
+          <label class="f-label">Ваше имя</label>
+          <input class="f-input" id="c-name" placeholder="Иван" type="text">
+        </div>
+        <div class="f-group">
+          <label class="f-label">Телефон</label>
+          <input class="f-input" id="c-phone" placeholder="+7 (___) ___-__-__" type="tel">
+        </div>
+      </div>
+      <div class="f-group">
+        <label class="f-label">Telegram (необязательно)</label>
+        <input class="f-input" id="c-tg" placeholder="@username" type="text">
+      </div>
+      <div class="f-group">
+        <label class="f-label">Что вас интересует?</label>
+        <select class="f-select" id="c-type">
+          <option value="">Выберите...</option>
+          <option>Хочу купить квартиру</option>
+          <option>Хочу купить дом / коттедж</option>
+          <option>Продаю недвижимость</option>
+          <option>Инвестиции</option>
+          <option>Ипотека</option>
+          <option>Аренда</option>
+        </select>
+      </div>
+      <div class="f-group">
+        <label class="f-label">Бюджет</label>
+        <select class="f-select" id="c-budget">
+          <option value="">Укажите бюджет...</option>
+          <option>До 3 млн ₽</option>
+          <option>3 – 6 млн ₽</option>
+          <option>6 – 12 млн ₽</option>
+          <option>12 – 25 млн ₽</option>
+          <option>Свыше 25 млн ₽</option>
+        </select>
+      </div>
+      <div class="f-group">
+        <label class="f-label">Комментарий</label>
+        <textarea class="f-input" id="c-comment" rows="4" style="resize:none" placeholder="Расскажите подробнее о ваших пожеланиях..."></textarea>
+      </div>
+      <button class="btn-teal form-send-btn" onclick="submitContact()">Отправить заявку</button>
+      <div class="success-msg" id="c-success">✓ Заявка принята! Мы свяжемся с вами в течение часа.</div>
+      <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+
+      <!-- Telegram CTA -->
+      <div style="margin-top:24px;background:#f0f9ff;border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:14px">
+        <div style="font-size:2rem">✈️</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:4px">Написать напрямую в Telegram</div>
+          <div style="font-size:13px;color:#555;margin-bottom:10px">Отвечаем быстро, даже в выходные</div>
+          <a href="https://t.me/kmv_realty" target="_blank" class="btn-tg" style="display:inline-flex;border-radius:8px;padding:9px 18px;font-size:14px;text-decoration:none">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            @kmv_realty
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info + map -->
+    <div>
+      <h2>Наш офис</h2>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><div class="contact-item-label">Адрес</div><div class="contact-item-val">г. Пятигорск, ул. Акопьянца, 11&#10;офис 1, этаж 1</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div><div class="contact-item-label">Телефон</div><div class="contact-item-val"><a href="tel:+78793000000" style="color:var(--teal);text-decoration:none">+7 (879) 300-00-00</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✈️</div>
+          <div><div class="contact-item-label">Telegram</div><div class="contact-item-val"><a href="https://t.me/kmv_realty" target="_blank" class="contact-tg-link">@kmv_realty</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉</div>
+          <div><div class="contact-item-label">Email</div><div class="contact-item-val">info@kmv-realty.ru</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div><div class="contact-item-label">Режим работы</div><div class="contact-item-val">Пн–Пт: 9:00–19:00&#10;Сб: 10:00–16:00, Вс: выходной</div></div>
+        </div>
+      </div>
+      <iframe class="map-iframe"
+        src="https://yandex.ru/map-widget/v1/?ll=43.062589%2C44.042854&z=17&pt=43.062589,44.042854,pm2rdm&l=map&oid=243915198342&ol=biz"
+        title="Офис на карте" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FAVORITES PAGE ═════════════════════════════════════════ -->
+<div id="page-favs" class="page">
+  <div class="favs-wrap">
+    <div class="favs-head">
+      <h1>Избранное</h1>
+      <p id="favs-count-text">0 объектов сохранено</p>
+    </div>
+    <div class="cards-grid" id="favs-grid"></div>
+    <div class="empty-state hidden" id="favs-empty">
+      <div class="empty-icon">♡</div>
+      <h3>Пока пусто</h3>
+      <p>Добавляйте объекты в избранное, нажимая ♡ на карточке</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-logo">
+    <div class="footer-logo-icon">🏠</div>
+    <div class="footer-logo-name"><span>КМВ</span>НедвижимостьГрупп</div>
+  </div>
+  <div class="footer-copy">© 2025 · Пятигорск · Кисловодск · Ессентуки · Железноводск</div>
+  <div class="footer-links">
+    <button class="footer-link" onclick="showPage('catalog')">Объекты</button>
+    <button class="footer-link" onclick="showPage('agents')">Агенты</button>
+    <button class="footer-link" onclick="showPage('contact')">Контакты</button>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════════════════
+//
+// КАК ВСТАВИТЬ СВОИ ФОТО:
+//   1. Загрузите фото на imgbb.com → скопируйте прямую ссылку
+//   2. Вставьте ссылку в поле img: "https://ссылка.jpg"
+//   3. В imgs: [] добавьте несколько фото для галереи
+//   4. Если сайт на GitHub → положите в папку /images/ и пишите img: "images/фото.jpg"
+//
+const PROPERTIES = [
+  {
+    id:1, title:"Дом на ул. Разина",
+    city:"Пятигорск", type:"Дом", status:"Продажа",
+    price:35500000, area:516, rooms:7, land:"9 сот.", floor:null, floors:2,
+    address:"ул. Разина, Пятигорск", distance:"500 м до парка «Цветник»",
+    badge:{text:"Горячее предложение",color:"#F5A623"},
+    description:"Кирпичный трёхэтажный дом по индивидуальному проекту 2000 г. Участок 9 соток в собственности, все центральные коммуникации. Закрытый двор, большая парковка. Собственная терраса, баня, сауна. Рядом остановки, магазины, школа и детский сад.",
+    features:["Кирпич / ракушечник","9 сот.","Баня / сауна","Закрытый двор","Все коммуникации","Парковка"],
+    // ↓ ЗАМЕНИТЕ на свою ссылку
+    img:"images/Dom.jpg",
+        imgs: ["images/Dom1.jpg","images/Dom2.jpg"],
+    year:2000
+  },
+  {
+    id:2, title:"Жилой дом на ул. Матвеева",
+    city:"Пятигорск", type:"Дом", status:"Продажа",
+    price:16500000, area:71, rooms:3, land:"4 сот.", floor:null, floors:1,
+    address:"ул. Матвеева, Пятигорск", distance:"300 м до бульвара Гагарина",
+    badge:null,
+    description:"Уютный одноэтажный жилой дом в Пятигорске. Участок 4 сотки, ухоженный. Все центральные коммуникации подключены. Хорошая транспортная доступность, развитая инфраструктура района.",
+    features:["1 этаж","4 сот.","Все коммуникации","Ухоженный участок"],
+    img:"images/CHD.jpg",
+    imgs:["images/CHD1.jpg"],
+    year:2010
+  },
+  {
+    id:3, title:"1-комн. квартира в курортной зоне",
+    city:"Кисловодск", type:"Квартира", status:"Продажа",
+    price:4250000, area:23.9, rooms:1, land:null, floor:1, floors:2,
+    address:"Курортная зона, Кисловодск", distance:"5 мин. до Курортного бульвара",
+    badge:{text:"Без комиссии",color:"#2C9E7D"},
+    description:"Уютная однокомнатная квартира в курортной зоне Кисловодска. В квартире остаётся вся мебель и техника. Рядом рестораны, аптеки, остановки. Пешком до Курортного бульвара 5 минут.",
+    features:["Мебель в подарок","Техника","Курортная зона","Транспорт рядом"],
+    img:"images/KV.jpg",
+      imgs: ["images/KV1.jpg", "images/KV2.jpg"],
+    year:2005
+  },
+  {
+    id:4, title:"Новостройка ЖК на ул. Авиации, 2",
+    city:"Кисловодск", type:"Квартира", status:"Новостройка",
+    price:20259840, area:41.49, rooms:1, land:null, floor:3, floors:15,
+    address:"ул. Авиации, 2, Кисловодск", distance:"Центр Кисловодска",
+    badge:{text:"Новый",color:"#3DAB7E"},
+    description:"Однокомнатная квартира от СЗ Антей-Альянс. Монолит-кирпич, 15 этажей. Высокие потолки, раздельный санузел, окна на улицу. Подземная парковка, места для прогулок. Возможна ипотека. Сдача — II кв. 2028.",
+    features:["Высокие потолки","Подз. паркинг","Ипотека","Раздельный с/у","Сдача 2028"],
+      img: "images/Ris.jpg",
+      imgs: ["images/Ris1.jpg", "images/Ris2.jpg"],
+    year:2028
+  },
+  {
+    id:5, title:"ЖК «Квартал лета» на набережной",
+    city:"Ессентуки", type:"Квартира", status:"Новостройка",
+    price:9200000, area:90.5, rooms:3, land:null, floor:2, floors:9,
+    address:"Набережная р. Подкумок, Ессентуки", distance:"Первая линия реки",
+    badge:{text:"Первая линия",color:"#1A7AB8"},
+    description:"3-комнатная квартира в ЖК «Квартал лета» от Наследие Девелопмент. Монолитно-каркасный дом с подземным паркингом. Панорамное остекление, индивидуальное отопление. Сдача — II кв. 2025.",
+    features:["Набережная","Панорам. остекление","Инд. отопление","Подз. паркинг","Сдача 2025"],
+    img:"images/KVE.jpg",
+    imgs:["images/KVE1","images/KVE2.jpg"],
+    year:2025
+  },
+  {
+    id:6, title:"Дом 275 м² на ул. Кисловодской",
+    city:"Ессентуки", type:"Дом", status:"Продажа",
+    price:18900000, area:275, rooms:5, land:"8 сот.", floor:null, floors:2,
+    address:"ул. Кисловодская, Ессентуки", distance:"600 м до городского парка",
+    badge:null,
+    description:"Просторный двухэтажный дом с участком 8 соток. На участке место для отдыха и огород. Все центральные коммуникации. Рядом школы, магазины, остановки.",
+    features:["8 сот.","Огород","Место для отдыха","Все коммуникации","Школа рядом"],
+    img:"images/DME.jpg",
+    imgs:["images/DME.jpg"],
+    year:2015
+  },
+  {
+      id: 7, title:"Новостройка на ул. Пастухова",
+    city:"Пятигорск", type:"Квартира", status:"Новостройка",
+    price:5800000, area:54, rooms:2, land:null, floor:5, floors:8,
+      address:"ул. Пастухова, Пятигорск", distance:"Центр Пятигорска",
+    badge:{text:"Сдан 2025",color:"#2C6E49"},
+    description:"2-комнатная квартира в сданном доме от СЗ КУРОРТНЫЙ (сдача июнь 2025). Монолит-блок, 8 этажей. Паркинг на территории. Развитая инфраструктура, отличная транспортная доступность.",
+    features:["Сдан июнь 2025","Монолит-блок","Паркинг","Центр города"],
+    img:"images/NOV.jpg",
+    imgs:["images/NOV1.jpg","Nov2.jpg"],
+    year:2025
+  },
+  {
+    id:8, title:"Торговое помещение, ул. Победы",
+    city:"Кисловодск", type:"Коммерческая", status:"Аренда",
+    price:85000, area:120, rooms:null, land:null, floor:1, floors:5,
+    address:"ул. Победы, 18, Кисловодск", distance:"Пешеходная улица",
+    badge:null,
+    description:"Торговое помещение на 1-м этаже в проходном месте Кисловодска. Большие витринные окна, отдельный вход, высокие потолки. Свободная планировка — для магазина, кафе, офиса или студии.",
+    features:["1-й этаж","Витринные окна","Отд. вход","Высокие потолки","Своб. планировка"],
+    img:"images/POM.jpg",
+    imgs:["images/POM1.jpg"],
+    year:2010
+  }
+];
+
+const AGENTS = [
+  {id:1, name:"Анна Ковальчук", role:"Ведущий агент • Пятигорск", langs:["RU","EN"], rating:5.0, deals:312, exp:"10 лет опыта", cities:["Пятигорск","Кисловодск"], spec:"Премиум коттеджи и элитные дома КМВ", avatar:"АК", color:"#2C7A6E", tg:"anna_kmv"},
+  {id:2, name:"Дмитрий Волков", role:"Эксперт по инвестициям • Ессентуки", langs:["RU","EN","DE"], rating:4.8, deals:148, exp:"6 лет опыта", cities:["Ессентуки","Железноводск"], spec:"Новостройки и инвестиционные объекты", avatar:"ДВ", color:"#1A6B9A", tg:"dmitry_kmv"},
+  {id:3, name:"Елена Тихонова", role:"Семейный риелтор • Кисловодск", langs:["RU"], rating:4.9, deals:276, exp:"8 лет опыта", cities:["Кисловодск","Пятигорск"], spec:"Квартиры и дома для семей с детьми", avatar:"ЕТ", color:"#7A3DAB", tg:"elena_kmv"},
+  {id:4, name:"Алексей Громов", role:"Аналитик рынка • КМВ", langs:["RU","EN"], rating:4.7, deals:89, exp:"4 года опыта", cities:["Все города"], spec:"Коммерческая недвижимость и аренда", avatar:"АГ", color:"#A84B2E", tg:"alexey_kmv"},
+  {id:5, name:"Ольга Мельник", role:"VIP-агент • Пятигорск", langs:["RU","EN","ZH"], rating:5.0, deals:201, exp:"12 лет опыта", cities:["Пятигорск"], spec:"Виллы и дома премиум класса", avatar:"ОМ", color:"#2C6E49", tg:"olga_kmv"},
+  {id:6, name:"Игорь Зайцев", role:"Специалист по аренде • КМВ", langs:["RU"], rating:4.8, deals:415, exp:"7 лет опыта", cities:["Все города"], spec:"Долгосрочная и посуточная аренда", avatar:"ИЗ", color:"#5A4E2E", tg:"igor_kmv"}
+];
+
+// ══════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════
+let favorites = JSON.parse(localStorage.getItem('kmv_favs') || '[]');
+let currentPage = 'home';
+let currentDetailId = null;
+let filterType = 'all';
+let filterCity = 'all';
+let filterSort = 'default';
+
+// ══════════════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════════════
+const fmt = n => n >= 1e6
+  ? (n/1e6).toFixed(1).replace('.0','') + ' млн ₽'
+  : n.toLocaleString('ru') + ' ₽';
+
+const fmtFull = n => n.toLocaleString('ru') + ' ₽';
+
+const roomsWord = n => {
+  if(!n) return '';
+  if(n===1) return '1 спальня';
+  if(n<5) return n+' спальни';
+  return n+' спален';
+};
+
+const saveFavs = () => localStorage.setItem('kmv_favs', JSON.stringify(favorites));
+
+const isFav = id => favorites.includes(id);
+
+const toggleFav = (id, e) => {
+  if(e) e.stopPropagation();
+  if(isFav(id)) favorites = favorites.filter(x => x !== id);
+  else favorites.push(id);
+  saveFavs();
+  updateFavCount();
+  updateAllFavBtns(id);
+};
+
+const updateFavCount = () => {
+  const badge = document.getElementById('fav-count');
+  if(favorites.length > 0){
+    badge.textContent = favorites.length;
+    badge.classList.remove('hidden');
+  } else {
+    badge.classList.add('hidden');
+  }
+};
+
+const updateAllFavBtns = (id) => {
+  document.querySelectorAll(`.card-fav[data-id="${id}"]`).forEach(btn => {
+    btn.textContent = isFav(id) ? '♥' : '♡';
+    isFav(id) ? btn.classList.add('active') : btn.classList.remove('active');
+  });
+  if(currentDetailId === id) updateDetailFavUI();
+  if(currentPage === 'favs') renderFavs();
+};
+
+// ══════════════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════════════
+const showPage = (name) => {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const navEl = document.getElementById('nav-'+name);
+  if(navEl) navEl.classList.add('active');
+  currentPage = name;
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name==='catalog') renderCatalog();
+  if(name==='favs') renderFavs();
+  if(name==='agents') renderAgents();
+};
+
+// ══════════════════════════════════════════════════════════════
+// PROPERTY CARD HTML
+// ══════════════════════════════════════════════════════════════
+const cardHTML = (p, clickFn) => {
+  const fav = isFav(p.id);
+  const badge = p.badge ? `<span class="card-badge" style="background:${p.badge.color}">${p.badge.text}</span>` : '';
+  const dist = p.distance ? `<span class="card-dist">🚶 ${p.distance}</span>` : '';
+  const eur = p.price >= 1e6 && p.status !== 'Аренда' ? `<div class="card-eur">~${Math.round(p.price/90000).toLocaleString('ru')}€</div>` : '';
+  const perMonth = p.status === 'Аренда' ? '<span class="per-month"> /мес</span>' : '';
+  const metaItems = [
+    p.rooms ? `<span>🛏 ${roomsWord(p.rooms)}</span>` : '',
+    `<span>📐 ${p.area} м²</span>`,
+    p.land ? `<span>🌿 ${p.land}</span>` : '',
+    p.floor ? `<span>🏢 ${p.floor}/${p.floors} эт.</span>` : ''
+  ].filter(Boolean).join('');
+
+  return `<div class="prop-card" onclick="${clickFn}(${p.id})">
+    <div class="card-img-wrap">
+      <img src="${p.img}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=60'">
+      ${badge}${dist}
+      <button class="card-fav${fav?' active':''}" data-id="${p.id}" onclick="toggleFav(${p.id},event)">${fav?'♥':'♡'}</button>
+    </div>
+    <div class="card-body">
+      <div class="card-city">${p.city} · ${p.type}</div>
+      <div class="card-title">${p.title}</div>
+      <div class="card-addr">📍 ${p.address}</div>
+      <div class="card-desc">${p.description.slice(0,120)}...</div>
+      <div class="card-meta">${metaItems}</div>
+      <div class="card-footer">
+        <div>
+          <div class="card-price">${fmt(p.price)}${perMonth}</div>
+          ${eur}
+        </div>
+        <div class="card-status">${p.status}</div>
+      </div>
+      <button class="btn-detail" style="margin-top:12px" onclick="event.stopPropagation();openDetail(${p.id})">Подробнее</button>
+    </div>
+  </div>`;
+};
+
+// ══════════════════════════════════════════════════════════════
+// HOME
+// ══════════════════════════════════════════════════════════════
+const renderHome = () => {
+  const featured = PROPERTIES.filter(p => p.badge).slice(0,3);
+  document.getElementById('home-featured').innerHTML = featured.map(p => cardHTML(p,'openDetail')).join('');
+  const previewAgents = AGENTS.slice(0,3);
+  document.getElementById('home-agents').innerHTML = previewAgents.map(a => agentCardHTML(a)).join('');
+};
+
+// ══════════════════════════════════════════════════════════════
+// CATALOG
+// ══════════════════════════════════════════════════════════════
+const renderCatalog = () => {
+  const search = document.getElementById('search-input').value.toLowerCase();
+  const status = document.getElementById('status-filter').value;
+  const priceMax = parseFloat(document.getElementById('price-max').value) || Infinity;
+  const rooms = document.getElementById('rooms-filter').value;
+
+  let res = PROPERTIES.filter(p => {
+    if(filterType !== 'all' && p.type !== filterType) return false;
+    if(filterCity !== 'all' && p.city !== filterCity) return false;
+    if(status !== 'all' && p.status !== status) return false;
+    if(p.price > priceMax * 1e6) return false;
+    if(rooms !== 'all'){
+      if(rooms === '4') { if(!p.rooms || p.rooms < 4) return false; }
+      else { if(p.rooms !== parseInt(rooms)) return false; }
+    }
+    if(search && !p.title.toLowerCase().includes(search) && !p.city.toLowerCase().includes(search) && !p.address.toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  if(filterSort === 'price_asc') res.sort((a,b) => a.price - b.price);
+  else if(filterSort === 'price_desc') res.sort((a,b) => b.price - a.price);
+  else if(filterSort === 'area') res.sort((a,b) => b.area - a.area);
+
+  document.getElementById('results-count').textContent = res.length;
+  const grid = document.getElementById('catalog-grid');
+  const empty = document.getElementById('catalog-empty');
+  if(res.length === 0){
+    grid.innerHTML = '';
+    empty.classList.remove('hidden');
+  } else {
+    empty.classList.add('hidden');
+    grid.innerHTML = res.map(p => cardHTML(p,'openDetail')).join('');
+  }
+};
+
+const resetFilters = () => {
+  filterType = 'all';
+  filterCity = 'all';
+  document.getElementById('search-input').value = '';
+  document.getElementById('status-filter').value = 'all';
+  document.getElementById('price-max').value = '';
+  document.getElementById('rooms-filter').value = 'all';
+  document.querySelectorAll('#type-pills .pill').forEach(b => b.classList.toggle('active', b.dataset.type === 'all'));
+  document.querySelectorAll('#city-pills .pill').forEach(b => b.classList.toggle('active', b.dataset.city === 'all'));
+  renderCatalog();
+};
+
+// Type pills
+document.querySelectorAll('#type-pills .pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterType = btn.dataset.type;
+    document.querySelectorAll('#type-pills .pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCatalog();
+  });
+});
+
+// City pills
+document.querySelectorAll('#city-pills .pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterCity = btn.dataset.city;
+    document.querySelectorAll('#city-pills .pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCatalog();
+  });
+});
+
+// Sort pills
+document.querySelectorAll('#sort-pills .sort-pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterSort = btn.dataset.sort;
+    document.querySelectorAll('#sort-pills .sort-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCatalog();
+  });
+});
+
+// ══════════════════════════════════════════════════════════════
+// DETAIL PAGE
+// ══════════════════════════════════════════════════════════════
+let detailActiveThumb = 0;
+
+const openDetail = (id) => {
+  const p = PROPERTIES.find(x => x.id === id);
+  if(!p) return;
+  currentDetailId = id;
+  detailActiveThumb = 0;
+
+  // Eyebrow
+  document.getElementById('detail-eyebrow').textContent = `${p.city} · ${p.type} · ${p.status}`;
+  document.getElementById('detail-title').textContent = p.title;
+  document.getElementById('detail-addr').textContent = `📍 ${p.address}`;
+
+  // Price
+  const priceEl = document.getElementById('detail-price');
+  priceEl.innerHTML = fmtFull(p.price) + (p.status==='Аренда' ? '<span class="per-month"> / мес.</span>' : '');
+
+  // Gallery
+  const mainImg = document.getElementById('detail-main-img');
+  mainImg.src = p.img;
+  mainImg.onerror = () => mainImg.src = 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&q=60';
+
+  const badgeEl = document.getElementById('detail-gal-badge');
+  if(p.badge){ badgeEl.textContent = p.badge.text; badgeEl.style.background = p.badge.color; badgeEl.style.display = ''; }
+  else badgeEl.style.display = 'none';
+
+  // Thumbs
+  const thumbsEl = document.getElementById('detail-thumbs');
+  if(p.imgs.length > 1){
+    thumbsEl.innerHTML = p.imgs.map((src,i) =>
+      `<img src="${src}" class="${i===0?'active':''}" alt="" onclick="setThumb(${i})"
+       onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&q=60'">`
+    ).join('');
+    thumbsEl.style.display = 'flex';
+  } else {
+    thumbsEl.innerHTML = '';
+    thumbsEl.style.display = 'none';
+  }
+
+  // Specs
+  const specs = [
+    ['Площадь', p.area + ' м²'],
+    p.rooms ? ['Комнат', p.rooms] : null,
+    p.floor ? ['Этаж', `${p.floor} из ${p.floors}`] : null,
+    p.floors && !p.floor ? ['Этажей', p.floors] : null,
+    p.land ? ['Участок', p.land] : null,
+    ['Год', p.year],
+    ['Город', p.city],
+    ['Статус', p.status],
+  ].filter(Boolean);
+  document.getElementById('detail-specs').innerHTML = specs.map(([l,v]) =>
+    `<div><div class="spec-label">${l}</div><div class="spec-val">${v}</div></div>`
+  ).join('');
+
+  document.getElementById('detail-desc').textContent = p.description;
+  document.getElementById('detail-features').innerHTML = p.features.map(f =>
+    `<span class="feature-tag">${f}</span>`
+  ).join('');
+
+  // Inline form prefill
+  document.getElementById('il-comment').value = `Интересует объект: ${p.title}, ${p.city}`;
+  document.getElementById('il-success').classList.remove('show');
+
+  updateDetailFavUI();
+  showPage('detail');
+};
+
+const setThumb = (i) => {
+  const p = PROPERTIES.find(x => x.id === currentDetailId);
+  if(!p) return;
+  detailActiveThumb = i;
+  document.getElementById('detail-main-img').src = p.imgs[i];
+  document.querySelectorAll('#detail-thumbs img').forEach((img,idx) =>
+    img.classList.toggle('active', idx === i)
+  );
+};
+
+const updateDetailFavUI = () => {
+  const fav = isFav(currentDetailId);
+  const btn = document.getElementById('detail-fav-btn');
+  const toggle = document.getElementById('detail-fav-toggle');
+  btn.textContent = fav ? '♥' : '♡';
+  fav ? btn.classList.add('active') : btn.classList.remove('active');
+  toggle.textContent = fav ? '♥ В избранном' : '♡ В избранное';
+  fav ? toggle.classList.add('active') : toggle.classList.remove('active');
+};
+
+const toggleFavDetail = () => {
+  toggleFav(currentDetailId);
+  updateDetailFavUI();
+};
+
+// ══════════════════════════════════════════════════════════════
+// AGENTS
+// ══════════════════════════════════════════════════════════════
+const langClass = l => ({RU:'lang-ru',EN:'lang-en',DE:'lang-de',ZH:'lang-zh'}[l] || '');
+
+const agentCardHTML = (a) => `
+  <div class="agent-card">
+    <div class="agent-photo" style="background:linear-gradient(135deg,${a.color}cc,${a.color}44)">
+      <span class="agent-rating">⭐ ${a.rating}</span>
+      <div class="agent-avatar">${a.avatar}</div>
+      <div>
+        <div class="agent-name">${a.name}</div>
+        <div class="agent-role">${a.role}</div>
+      </div>
+    </div>
+    <div class="agent-body">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div class="lang-badges">${a.langs.map(l=>`<span class="lang-badge ${langClass(l)}">${l}</span>`).join('')}</div>
+        <span class="agent-exp">${a.exp}</span>
+      </div>
+      <div class="agent-cities">${a.cities.map(c=>`<span class="agent-city">📍 ${c}</span>`).join('')}</div>
+      <div class="agent-spec"><b>Специализация:</b> ${a.spec}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+        <div>
+          <div class="agent-deals-num">${a.deals}+</div>
+          <div class="agent-deals-lbl">сделок</div>
+        </div>
+        <div class="agent-actions">
+          <a href="https://t.me/${a.tg}" target="_blank" class="btn-tg" style="text-decoration:none">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="#fff"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Telegram
+          </a>
+          <a href="tel:+78793000000" class="btn-call" style="text-decoration:none">📞 Звонок</a>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+const renderAgents = () => {
+  document.getElementById('agents-grid').innerHTML = AGENTS.map(a => agentCardHTML(a)).join('');
+};
+
+// ══════════════════════════════════════════════════════════════
+// FAVORITES
+// ══════════════════════════════════════════════════════════════
+const renderFavs = () => {
+  const favProps = PROPERTIES.filter(p => favorites.includes(p.id));
+  const count = favProps.length;
+  const word = count===1?'объект':count<5?'объекта':'объектов';
+  document.getElementById('favs-count-text').textContent = `${count} ${word} сохранено`;
+  const grid = document.getElementById('favs-grid');
+  const empty = document.getElementById('favs-empty');
+  if(count === 0){
+    grid.innerHTML = '';
+    empty.classList.remove('hidden');
+  } else {
+    empty.classList.add('hidden');
+    grid.innerHTML = favProps.map(p => cardHTML(p,'openDetail')).join('');
+  }
+};
+
+// ══════════════════════════════════════════════════════════════
+// FORMS
+// ══════════════════════════════════════════════════════════════
+const submitInline = () => {
+  const name = document.getElementById('il-name').value.trim();
+  const phone = document.getElementById('il-phone').value.trim();
+  if(!name || !phone){ alert('Пожалуйста, заполните имя и телефон'); return; }
+  const success = document.getElementById('il-success');
+  success.classList.add('show');
+  document.getElementById('il-name').value = '';
+  document.getElementById('il-phone').value = '';
+  setTimeout(() => success.classList.remove('show'), 5000);
+};
+
+const submitContact = () => {
+  const name = document.getElementById('c-name').value.trim();
+  const phone = document.getElementById('c-phone').value.trim();
+  if(!name || !phone){ alert('Пожалуйста, заполните имя и телефон'); return; }
+  const btn = document.querySelector('.form-send-btn');
+  const success = document.getElementById('c-success');
+  btn.textContent = '✓ Заявка принята!';
+  btn.style.background = '#2c6e49';
+  success.classList.add('show');
+  ['c-name','c-phone','c-tg','c-comment'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('c-type').value = '';
+  document.getElementById('c-budget').value = '';
+  setTimeout(() => {
+    btn.textContent = 'Отправить заявку';
+    btn.style.background = '';
+    success.classList.remove('show');
+  }, 5000);
+};
+
+// ══════════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════════
+renderHome();
+renderCatalog();
+updateFavCount();
+</script>
+</body>
+</html>
