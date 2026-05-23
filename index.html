@@ -295,12 +295,13 @@ footer{background:var(--dark);padding:28px 40px;display:flex;justify-content:spa
   <a class="nav-logo" onclick="showPage('home')">
     <div class="nav-logo-icon">🏠</div>
     <div>
-      <div class="nav-logo-text"><span>КМВ</span>Новый дом</div>
+      <div class="nav-logo-text"><span>КМВ</span>НедвижимостьГрупп</div>
       <div class="nav-logo-sub">KMV REAL ESTATE</div>
     </div>
   </a>
   <div class="nav-links">
-    <button class="nav-link active" id="nav-home"    onclick="showPage('home')">О компании</button>
+    <button class="nav-link active" id="nav-home"    onclick="showPage('home')">Главная</button>
+    <button class="nav-link"        id="nav-about"   onclick="showPage('about')">О компании</button>
     <button class="nav-link"        id="nav-catalog" onclick="showPage('catalog')">Объекты</button>
     <button class="nav-link"        id="nav-agents"  onclick="showPage('agents')">Агенты</button>
     <button class="nav-link"        id="nav-contact" onclick="showPage('contact')">Контакты</button>
@@ -394,6 +395,161 @@ footer{background:var(--dark);padding:28px 40px;display:flex;justify-content:spa
   </section>
 
 </div><!-- /page-home -->
+
+<!-- ══ ABOUT PAGE ════════════════════════════════════════════ -->
+<div id="page-about" class="page">
+
+  <!-- Hero -->
+  <div style="background:var(--dark);padding:80px 40px 70px;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1400&q=60');background-size:cover;background-position:center;opacity:.15"></div>
+    <div style="position:relative;z-index:1;max-width:760px">
+      <div class="section-tag" style="border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.7)">О КОМПАНИИ</div>
+      <h1 style="font-size:clamp(2rem,4vw,3.2rem);font-weight:800;color:#fff;line-height:1.15;margin-bottom:20px">
+        «Новый Дом» — агентство недвижимости<br><span style="color:var(--teal)">с душой и опытом</span>
+      </h1>
+      <p style="font-size:16px;line-height:1.8;color:rgba(255,255,255,.6);max-width:600px">
+        Мы работаем в Пятигорске и помогаем людям решать один из самых важных вопросов в жизни — жилищный. Без лишних обещаний, зато с реальным результатом.
+      </p>
+    </div>
+  </div>
+
+  <!-- Story -->
+  <section style="padding:70px 40px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+    <div>
+      <div class="section-tag">НАША ИСТОРИЯ</div>
+      <h2 style="font-size:1.9rem;font-weight:800;color:#111;margin-bottom:20px;line-height:1.2">Начинали с одного офиса — остаёмся верны КМВ</h2>
+      <p style="font-size:15px;line-height:1.85;color:#555;margin-bottom:16px">
+        Агентство «Новый Дом» основано в Пятигорске и с первых дней специализируется исключительно на рынке Кавказских Минеральных Вод. Мы не работаем «по всей России» — мы глубоко знаем свой регион: каждый район, каждый застройщик, каждое подводное течение местного рынка.
+      </p>
+      <p style="font-size:15px;line-height:1.85;color:#555;margin-bottom:16px">
+        За годы работы через нас прошли сотни сделок — покупка, продажа, обмен, оформление в ипотеку, страхование. Клиенты возвращаются и приводят друзей: это лучший показатель качества нашей работы.
+      </p>
+      <p style="font-size:15px;line-height:1.85;color:#555">
+        Сегодня «Новый Дом» — это не просто агентство. Это команда специалистов, которые берут на себя весь процесс сделки: от первого звонка до получения ключей.
+      </p>
+    </div>
+    <div style="position:relative">
+      <div style="background:linear-gradient(135deg,#1A2E45,#0D1B2A);border-radius:20px;padding:40px;color:#fff">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+          <div style="text-align:center">
+            <div style="font-size:3rem;font-weight:800;color:var(--teal);line-height:1">200+</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:6px">объектов продано</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:3rem;font-weight:800;color:var(--teal);line-height:1">4.6</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:6px">рейтинг на Яндекс Картах</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:3rem;font-weight:800;color:var(--teal);line-height:1">4</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:6px">города присутствия</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:3rem;font-weight:800;color:var(--teal);line-height:1">9+</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:6px">лет на рынке КМВ</div>
+          </div>
+        </div>
+        <div style="margin-top:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,.1);font-size:14px;color:rgba(255,255,255,.45);text-align:center;line-height:1.6">
+          Агентство недвижимости, юридические услуги<br>и страховой брокер — всё в одном офисе
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section style="background:#f0fdf9;padding:70px 40px">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="text-align:center;margin-bottom:48px">
+        <div class="section-tag">КАК МЫ РАБОТАЕМ</div>
+        <h2 style="font-size:1.9rem;font-weight:800;color:#111">Принципы, которые не меняются</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <div style="background:#fff;border-radius:16px;padding:32px 28px;box-shadow:0 2px 16px rgba(0,0,0,.07)">
+          <div style="width:52px;height:52px;background:#e6faf5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px">🤝</div>
+          <div style="font-size:18px;font-weight:700;color:#111;margin-bottom:10px">Честность прежде всего</div>
+          <p style="font-size:14px;color:#555;line-height:1.75">Мы не будем убеждать вас купить объект, который вам не подходит. Скажем прямо о плюсах и минусах — и поможем принять взвешенное решение.</p>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:32px 28px;box-shadow:0 2px 16px rgba(0,0,0,.07)">
+          <div style="width:52px;height:52px;background:#e6faf5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px">⚡</div>
+          <div style="font-size:18px;font-weight:700;color:#111;margin-bottom:10px">Оперативность</div>
+          <p style="font-size:14px;color:#555;line-height:1.75">Отвечаем быстро, действуем чётко. Клиенты отмечают: с нами не нужно стоять в очередях и бегать по инстанциям — мы берём это на себя.</p>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:32px 28px;box-shadow:0 2px 16px rgba(0,0,0,.07)">
+          <div style="width:52px;height:52px;background:#e6faf5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px">🔐</div>
+          <div style="font-size:18px;font-weight:700;color:#111;margin-bottom:10px">Безопасность сделки</div>
+          <p style="font-size:14px;color:#555;line-height:1.75">Юридическая проверка объекта, работа с долгами и обременениями, грамотное оформление — ваша сделка защищена на каждом этапе.</p>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:32px 28px;box-shadow:0 2px 16px rgba(0,0,0,.07)">
+          <div style="width:52px;height:52px;background:#e6faf5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px">🏦</div>
+          <div style="font-size:18px;font-weight:700;color:#111;margin-bottom:10px">Ипотека и страхование</div>
+          <p style="font-size:14px;color:#555;line-height:1.75">Помогаем подобрать ипотеку на выгодных условиях и оформить страховку дешевле, чем в банке. Всё в одном окне — без лишних поездок.</p>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:32px 28px;box-shadow:0 2px 16px rgba(0,0,0,.07)">
+          <div style="width:52px;height:52px;background:#e6faf5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px">📍</div>
+          <div style="font-size:18px;font-weight:700;color:#111;margin-bottom:10px">Знаем КМВ изнутри</div>
+          <p style="font-size:14px;color:#555;line-height:1.75">Пятигорск, Кисловодск, Ессентуки, Железноводск — мы знаем каждый микрорайон, застройщика и особенности местного рынка.</p>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:32px 28px;box-shadow:0 2px 16px rgba(0,0,0,.07)">
+          <div style="width:52px;height:52px;background:#e6faf5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px">💬</div>
+          <div style="font-size:18px;font-weight:700;color:#111;margin-bottom:10px">Связь в любое время</div>
+          <p style="font-size:14px;color:#555;line-height:1.75">Пишите в Telegram — отвечаем оперативно, в том числе по вечерам и в выходные. Вопрос не ждёт — и мы не заставляем ждать вас.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section style="padding:70px 40px;max-width:1200px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:48px">
+      <div class="section-tag">ОТЗЫВЫ</div>
+      <h2 style="font-size:1.9rem;font-weight:800;color:#111">Что говорят клиенты</h2>
+      <p style="color:#666;font-size:15px;margin-top:8px">Реальные отзывы с Яндекс Карт · Рейтинг 4.6 ⭐</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,.07);border-top:3px solid var(--teal)">
+        <div style="display:flex;gap:4px;margin-bottom:14px;color:#f5a623;font-size:16px">★★★★★</div>
+        <p style="font-size:14px;color:#333;line-height:1.75;margin-bottom:16px">«Огромное спасибо Максиму за помощь в оформлении документов. Продали участок — переоформление доверили Максиму. Не подвёл, быстро и оперативно выполнил работу. Очень вежлив и внимателен к клиентам. Буду рекомендовать друзьям!»</p>
+        <div style="font-size:13px;font-weight:600;color:#111">Галина</div>
+        <div style="font-size:12px;color:#aaa">Октябрь 2021 · Яндекс Карты</div>
+      </div>
+      <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,.07);border-top:3px solid var(--teal)">
+        <div style="display:flex;gap:4px;margin-bottom:14px;color:#f5a623;font-size:16px">★★★★★</div>
+        <p style="font-size:14px;color:#333;line-height:1.75;margin-bottom:16px">«Оформляла три сделки купли-продажи квартиры через Максима! Если будут сделки ещё — только к нему! Всегда очень грамотная работа, всегда оперативно. Также застраховал квартиру в ипотеке дешевле, чем в других организациях!»</p>
+        <div style="font-size:13px;font-weight:600;color:#111">Татьяна</div>
+        <div style="font-size:12px;color:#aaa">Октябрь 2019 · Яндекс Карты</div>
+      </div>
+      <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,.07);border-top:3px solid var(--teal)">
+        <div style="display:flex;gap:4px;margin-bottom:14px;color:#f5a623;font-size:16px">★★★★★</div>
+        <p style="font-size:14px;color:#333;line-height:1.75;margin-bottom:16px">«Очень благодарны Максиму за быструю, качественную и чёткую работу! Огромное спасибо за оформление всех документов и грамотно проведённые 2 сделки по покупке квартир. Настоящий профессионал своего дела!»</p>
+        <div style="font-size:13px;font-weight:600;color:#111">Евгения М.</div>
+        <div style="font-size:12px;color:#aaa">Май 2018 · Яндекс Карты</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="https://yandex.ru/maps/org/novy_dom/243915198342/reviews/" target="_blank"
+        style="display:inline-flex;align-items:center;gap:8px;color:var(--teal);font-weight:600;font-size:15px;text-decoration:none;border:2px solid var(--teal);border-radius:8px;padding:11px 24px;transition:all .15s"
+        onmouseover="this.style.background='var(--teal)';this.style.color='#fff'"
+        onmouseout="this.style.background='transparent';this.style.color='var(--teal)'">
+        Все отзывы на Яндекс Картах →
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:var(--dark);padding:70px 40px;text-align:center">
+    <div style="max-width:600px;margin:0 auto">
+      <h2 style="font-size:2rem;font-weight:800;color:#fff;margin-bottom:16px">Готовы начать?</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:32px">Оставьте заявку или напишите в Telegram — ответим быстро и подберём лучший вариант под ваш запрос.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-teal" style="font-size:15px;padding:13px 32px" onclick="showPage('contact')">Оставить заявку</button>
+        <a href="https://t.me/kmv_realty" target="_blank" class="btn-tg" style="font-size:15px;padding:13px 24px;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;gap:8px">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Написать в Telegram
+        </a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-about -->
 
 <!-- ══ CATALOG PAGE ═══════════════════════════════════════════ -->
 <div id="page-catalog" class="page">
@@ -673,6 +829,7 @@ footer{background:var(--dark);padding:28px 40px;display:flex;justify-content:spa
   </div>
   <div class="footer-copy">© 2025 · Пятигорск · Кисловодск · Ессентуки · Железноводск</div>
   <div class="footer-links">
+    <button class="footer-link" onclick="showPage('about')">О компании</button>
     <button class="footer-link" onclick="showPage('catalog')">Объекты</button>
     <button class="footer-link" onclick="showPage('agents')">Агенты</button>
     <button class="footer-link" onclick="showPage('contact')">Контакты</button>
@@ -700,8 +857,8 @@ const PROPERTIES = [
     description:"Кирпичный трёхэтажный дом по индивидуальному проекту 2000 г. Участок 9 соток в собственности, все центральные коммуникации. Закрытый двор, большая парковка. Собственная терраса, баня, сауна. Рядом остановки, магазины, школа и детский сад.",
     features:["Кирпич / ракушечник","9 сот.","Баня / сауна","Закрытый двор","Все коммуникации","Парковка"],
     // ↓ ЗАМЕНИТЕ на свою ссылку
-    img:"images/Dom.jpg",
-        imgs: ["images/Dom1.jpg","images/Dom2.jpg"],
+    img:"assets/images/Dom.jpg",
+        imgs: ["assets/images/Dom1.jpg","assets/images/Dom2.jpg"],
     year:2000
   },
   {
@@ -712,8 +869,8 @@ const PROPERTIES = [
     badge:null,
     description:"Уютный одноэтажный жилой дом в Пятигорске. Участок 4 сотки, ухоженный. Все центральные коммуникации подключены. Хорошая транспортная доступность, развитая инфраструктура района.",
     features:["1 этаж","4 сот.","Все коммуникации","Ухоженный участок"],
-    img:"images/CHD.jpg",
-    imgs:["images/CHD1.jpg"],
+      img:"assets/images/CHD.jpg",
+      imgs: ["assets/images/CHD1.jpg"],
     year:2010
   },
   {
@@ -724,8 +881,8 @@ const PROPERTIES = [
     badge:{text:"Без комиссии",color:"#2C9E7D"},
     description:"Уютная однокомнатная квартира в курортной зоне Кисловодска. В квартире остаётся вся мебель и техника. Рядом рестораны, аптеки, остановки. Пешком до Курортного бульвара 5 минут.",
     features:["Мебель в подарок","Техника","Курортная зона","Транспорт рядом"],
-    img:"images/KV.jpg",
-      imgs: ["images/KV1.jpg", "images/KV2.jpg"],
+      img:"assets/images/KV.jpg",
+      imgs: ["assets/images/KV1.jpg", "assets/images/KV2.jpg"],
     year:2005
   },
   {
@@ -736,8 +893,8 @@ const PROPERTIES = [
     badge:{text:"Новый",color:"#3DAB7E"},
     description:"Однокомнатная квартира от СЗ Антей-Альянс. Монолит-кирпич, 15 этажей. Высокие потолки, раздельный санузел, окна на улицу. Подземная парковка, места для прогулок. Возможна ипотека. Сдача — II кв. 2028.",
     features:["Высокие потолки","Подз. паркинг","Ипотека","Раздельный с/у","Сдача 2028"],
-      img: "images/Ris.jpg",
-      imgs: ["images/Ris1.jpg", "images/Ris2.jpg"],
+      img: "assets/images/Ris.jpg",
+      imgs: ["assets/images/Ris1.jpg", "assets/images/Ris2.jpg"],
     year:2028
   },
   {
@@ -748,8 +905,8 @@ const PROPERTIES = [
     badge:{text:"Первая линия",color:"#1A7AB8"},
     description:"3-комнатная квартира в ЖК «Квартал лета» от Наследие Девелопмент. Монолитно-каркасный дом с подземным паркингом. Панорамное остекление, индивидуальное отопление. Сдача — II кв. 2025.",
     features:["Набережная","Панорам. остекление","Инд. отопление","Подз. паркинг","Сдача 2025"],
-    img:"images/KVE.jpg",
-    imgs:["images/KVE1","images/KVE2.jpg"],
+      img:"assets/images/KVE.jpg",
+      imgs: ["assets/images/KVE1","assets/images/KVE2.jpg"],
     year:2025
   },
   {
@@ -760,20 +917,20 @@ const PROPERTIES = [
     badge:null,
     description:"Просторный двухэтажный дом с участком 8 соток. На участке место для отдыха и огород. Все центральные коммуникации. Рядом школы, магазины, остановки.",
     features:["8 сот.","Огород","Место для отдыха","Все коммуникации","Школа рядом"],
-    img:"images/DME.jpg",
-    imgs:["images/DME.jpg"],
+      img:"assets/images/obj6-preview.jpg",
+      imgs: ["assets/images/obj6-1.jpg"],
     year:2015
   },
   {
-      id: 7, title:"Новостройка на ул. Пастухова",
+    id:7, title:"Новостройка на ул. Леваневского",
     city:"Пятигорск", type:"Квартира", status:"Новостройка",
     price:5800000, area:54, rooms:2, land:null, floor:5, floors:8,
-      address:"ул. Пастухова, Пятигорск", distance:"Центр Пятигорска",
+    address:"ул. Леваневского, Пятигорск", distance:"Центр Пятигорска",
     badge:{text:"Сдан 2025",color:"#2C6E49"},
     description:"2-комнатная квартира в сданном доме от СЗ КУРОРТНЫЙ (сдача июнь 2025). Монолит-блок, 8 этажей. Паркинг на территории. Развитая инфраструктура, отличная транспортная доступность.",
     features:["Сдан июнь 2025","Монолит-блок","Паркинг","Центр города"],
-    img:"images/NOV.jpg",
-    imgs:["images/NOV1.jpg","Nov2.jpg"],
+      img:"assets/images/obj7-preview.jpg",
+      imgs: ["assets/images/obj7-1.jpg","assets/images/obj7-2.jpg"],
     year:2025
   },
   {
@@ -784,8 +941,8 @@ const PROPERTIES = [
     badge:null,
     description:"Торговое помещение на 1-м этаже в проходном месте Кисловодска. Большие витринные окна, отдельный вход, высокие потолки. Свободная планировка — для магазина, кафе, офиса или студии.",
     features:["1-й этаж","Витринные окна","Отд. вход","Высокие потолки","Своб. планировка"],
-    img:"images/POM.jpg",
-    imgs:["images/POM1.jpg"],
+      img:"assets/images/obj8-preview.jpg",
+      imgs: ["assets/images/obj8-1.jpg"],
     year:2010
   }
 ];
